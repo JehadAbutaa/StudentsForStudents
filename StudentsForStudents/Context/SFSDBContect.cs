@@ -1,0 +1,41 @@
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Mysqlx.Crud;
+using MySqlX.XDevAPI;
+using SmartLineSystem.Models;
+using StudentsForStudents.Models;
+using StudentsForStudents.Models.EntityTypeConfig;
+
+namespace StudentsForStudents.Context
+{
+    public class SFSDBContect : IdentityDbContext<ApplicationUser>
+    {
+        public SFSDBContect(DbContextOptions<SFSDBContect> options) : base(options)
+        {
+
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration<Student>(new StudentEntityTypeConfig());
+            modelBuilder.ApplyConfiguration<Teacher>(new TeacherEntityTypeConfig());
+            modelBuilder.ApplyConfiguration<Lecture>(new LectureEntityTypeConfig());
+            modelBuilder.ApplyConfiguration<Chat>(new ChatEntityTypeConfig());
+            //  modelBuilder.ApplyConfiguration<ChatViewModel>(new ChatViewModelEntityTypeConfig());
+
+            modelBuilder.ApplyConfiguration<Courses>(new CoursesEntityTypeConfig());
+
+        }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teacher { get; set; }
+        public DbSet<Lecture> Lecture { get; set; }
+
+        public DbSet<Courses> Courses { get; set; }
+
+        public DbSet<Chat> Chats { get; set; }
+
+       // public DbSet<ChatViewModel> ChatViewModel { get; set; }
+
+    }
+}
+

@@ -1,0 +1,372 @@
+﻿@model StudentsForStudents.Models.Student
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    <style>
+        /* Profile Section improvements */
+        .profile-page-area {
+            margin-top: 50px; /* Move the section up slightly */
+        }
+
+        .profile-card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+            .profile-card img {
+                border-radius: 50%;
+                width: 150px;
+                height: 150px;
+            }
+
+            .profile-card h3 {
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .profile-card p {
+                color: #777;
+            }
+
+        .profile-details {
+            padding-left: 0;
+        }
+
+            .profile-details ul li {
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+
+                .profile-details ul li strong {
+                    color: #333;
+                }
+
+        /* Edit Profile Button */
+        #edit-profile-btn {
+            background-color: #1E90FF;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+            #edit-profile-btn:hover {
+                background-color: #0066cc;
+            }
+
+        /* Edit Profile Form */
+        #edit-profile-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        #edit-profile-form .form-control {
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #edit-profile-form button {
+            background-color: #28a745;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+            #edit-profile-form button:hover {
+                background-color: #218838;
+            }
+
+    </style>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/Theme/img/fav.png" />
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib" />
+    <!-- Meta Description -->
+    <meta name="description" content="" />
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="" />
+    <!-- meta character set -->
+    <meta charset="UTF-8" />
+    <!-- Site Title -->
+    <title>My Profile</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Roboto:400,400i,500,700" rel="stylesheet" />
+    <!--
+      CSS
+      =============================================
+    -->
+    <link rel="stylesheet" href="~/Theme/css/linearicons.css" />
+    <link rel="stylesheet" href="~/Theme/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Theme/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Theme/css/magnific-popup.css" />
+    <link rel="stylesheet" href="~/Theme/css/owl.carousel.css" />
+    <link rel="stylesheet" href="~/Theme/css/nice-select.css" />
+    <link rel="stylesheet" href="~/Theme/css/hexagons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css" />
+    <link rel="stylesheet" href="~/Theme/css/main.css" />
+</head>
+
+<body>
+    <!-- ================ Start Header Area ================= -->
+    <header class="default-header">
+        <nav class="navbar navbar-expand-lg  navbar-light">
+            <div class="container">
+                <nav class="navbar navbar-light bg-light">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://i.postimg.cc/mrnnbFDf/LogoSFS1.png" alt="Logo">
+                    </a>
+                </nav>
+
+                <style>
+                    .navbar-brand img {
+                        width: 100px; /* Set the logo width */
+                        height: auto; /* Keep aspect ratio */
+                    }
+                </style>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="lnr lnr-menu"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <!-- Dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                Pages
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="elements.html">Elements</a>
+                                <a class="dropdown-item" href="course-details.html">Course Details</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                Blog
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="blog-home.html">Blog Home</a>
+                                <a class="dropdown-item" href="blog-single.html">Blog Details</a>
+                            </div>
+                        </li>
+                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="login.html">log in</a></li>
+
+
+                        <li>
+                            <button class="search">
+                                <span class="lnr lnr-magnifier" id="search"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="search-input" id="search-input-box">
+            <div class="container">
+                <form class="d-flex justify-content-between">
+                    <input type="text" class="form-control" id="search-input" placeholder="Search Here" />
+                    <button type="submit" class="btn"></button>
+                    <span class="lnr lnr-cross" id="close-search" title="Close Search"></span>
+                </form>
+            </div>
+        </div>
+    </header>
+    <!-- ================ End Header Area ================= -->
+    <!-- ================ Start Banner Area ================= -->
+    <section class="banner-area">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-12 banner-right">
+                    <h1 class="text-white">
+                        My Profile
+                    </h1>
+                    <p class="mx-auto text-white mt-20 mb-40">
+                        View and manage your profile details.
+                    </p>
+                    <div class="link-nav">
+                        <span class="box">
+                            <a href="index.html">Home </a>
+                            <i class="lnr lnr-arrow-right"></i>
+                            <a href="profile.html">My Profile</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Banner Area ================= -->
+    <!-- ================ Start Profile Section ================= -->
+    <section class="profile-page-area section-gap" style="background-image: url('img/video-area-bg.png'); background-size: cover; background-position: center; padding: 120px 0; color: white;">
+        <div class="container">
+            <div class="row">
+                <!-- Left Column: Profile Picture -->
+                <div class="col-lg-4">
+                    <div class="profile-card text-center" style="padding: 40px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); border-radius: 12px; background-color: rgba(4, 9, 30, 0.9);">
+                        <!-- Fixed size square image -->
+                        <img src="@Model.ImgPath" alt="Profile Picture" class="rounded-circle mb-4" style="width: 200px; height: 200px; object-fit: cover;" />
+                        <h3 style="font-size: 32px; color: white;">@Model.FirstName @Model.LastName</h3>
+                        <button class="btn primary-btn mt-4" id="edit-profile-btn" style="font-size: 20px; padding: 14px 35px; background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%); border: none; color: white; border-radius: 6px;">Edit Profile</button>
+                    </div>
+                </div>
+                <!-- Right Column: Profile Details -->
+                <div class="col-lg-8">
+                    <div class="profile-details" style="padding-left: 30px; background-color: rgba(4, 9, 30, 0.9); border-radius: 12px; padding: 40px; min-height: 500px; margin-top: 20px;">
+                        <h4 class="mb-4" style="font-size: 28px; font-weight: bold; color: white;">Profile Details</h4>
+                        <ul class="list-unstyled" id="profile-info" style="font-size: 18px; line-height: 2.5; color: white;">
+                            <li style="margin-bottom: 20px;"><strong style="font-size: 22px;">First Name:</strong> @Model.FirstName </li>
+                            <li style="margin-bottom: 20px;"><strong style="font-size: 22px;">Last Name:</strong> @Model.LastName </li>
+                            <li style="margin-bottom: 20px;"><strong style="font-size: 22px;">Email:</strong> @Model.Email</li>
+                            <li style="margin-bottom: 20px;"><strong style="font-size: 22px;">Phone:</strong> @Model.PhoneNumber</li>
+                            <li style="margin-bottom: 20px;"><strong style="font-size: 22px;">Major:</strong> @Model.Major</li>
+                        </ul>
+                        <!-- Edit Profile Form (Initially hidden but with consistent height) -->
+                        <form asp-controller="Home" asp-action="EditProfile" id="edit-profile-form" style="display:none; font-size: 18px; margin-top: 20px;">
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="name" style="font-size: 24px; color: white;">First Name</label>
+                                <input type="text" class="form-control" id="name" value="@Model.FirstName" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="name" style="font-size: 24px; color: white;">Last Name</label>
+                                <input type="text" class="form-control" id="name" value="@Model.LastName" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="email" style="font-size: 24px; color: white;">Email</label>
+                                <input type="email" class="form-control" id="email" value="@Model.Email" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="phone" style="font-size: 24px; color: white;">Phone</label>
+                                <input type="text" class="form-control" id="phone" value="@Model.PhoneNumber" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="address" style="font-size: 24px; color: white;">Major</label>
+                                <input type="text" class="form-control" id="address" value="@Model.Major" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                             <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="address" style="font-size: 24px; color: white;">Level</label>
+                                <input type="text" class="form-control" id="address" value="@Model.Level" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="address" style="font-size: 24px; color: white;">Student ID</label>
+                                <input type="text" class="form-control" id="address" value="@Model.StudentId" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="profile-pic" style="font-size: 24px; color: white;">Profile Picture</label>
+                                <input type="file" class="form-control" id="profile-pic" accept="image/*" style="font-size: 18px; padding: 12px 15px;">
+                            </div>
+                            <button type="submit" class="btn primary-btn mt-4" style="font-size: 20px; padding: 12px 30px; background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%); border: none; color: white; border-radius: 6px;">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Profile Section ================= -->
+    <!-- ================ start footer Area ================= -->
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <h4>About Us</h4>
+                    <p>
+                        Student for Student is a platform where students teach each other and get paid, creating a collaborative learning environment.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <h4>Contact</h4>
+                    <p>
+                        Address: university of petra<br>
+                        Email: studentforstudent@gmail.com<br>
+                        Phone: +962 790 000 000
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Student Guide</a></li>
+                        <li><a href="#">Teacher FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <h4>Follow Us</h4>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom row align-items-center">
+                <p class="footer-text m-0 col-lg-12 text-center">
+                    &copy;<script>document.write(new Date().getFullYear());</script> Student for Student
+                </p>
+            </div>
+            <div> <p>      ‎      </p> </div>
+            <div> <p>       ‎    </p> </div>
+        </div>
+    </footer>
+    <!-- ================ End footer Area ================= -->
+
+    <script>
+        // Toggle visibility of the edit profile form
+        document.getElementById('edit-profile-btn').addEventListener('click', function () {
+            const profileInfo = document.getElementById('profile-info');
+            const editProfileForm = document.getElementById('edit-profile-form');
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+
+            if (editProfileForm.style.display === 'none') {
+                profileInfo.style.display = 'none';
+                editProfileForm.style.display = 'block';
+                editProfileBtn.textContent = 'Cancel';
+            } else {
+                profileInfo.style.display = 'block';
+                editProfileForm.style.display = 'none';
+                editProfileBtn.textContent = 'Edit Profile';
+            }
+        });
+
+        // Handle form submission (just a basic example, no back-end implementation here)
+        document.getElementById('edit-profile-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Here you would handle saving the changes (e.g., sending to a server)
+            alert('Profile updated successfully!');
+
+            // Hide the edit form and show the updated profile details
+            document.getElementById('profile-info').style.display = 'block';
+            document.getElementById('edit-profile-form').style.display = 'none';
+            document.getElementById('edit-profile-btn').textContent = 'Edit Profile';
+        });
+    </script>
+    <script src="~/Theme/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="~/Theme/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="~/Theme/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Theme/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Theme/js/parallax.min.js"></script>
+    <script src="~/Theme/js/owl.carousel.min.js"></script>
+    <script src="~/Theme/js/jquery.sticky.js"></script>
+    <script src="~/Theme/js/hexagons.min.js"></script>
+    <script src="~/Theme/js/jquery.counterup.min.js"></script>
+    <script src="~/Theme/js/waypoints.min.js"></script>
+    <script src="~/Theme/js/jquery.nice-select.min.js"></script>
+    <script src="~/Theme/js/main.js"></script>
+</body>
+
+</html>
