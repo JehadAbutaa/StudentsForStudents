@@ -22,38 +22,39 @@ namespace StudentsForStudents.Controllers
 {
 
     public class HomeController : Controller
-        {
+    {
         private readonly string _sendGridApiKey = "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";
         private const string GoogleAppPassword = "rqnj bhkh yici baty";
         private readonly UserManager<ApplicationUser> _userManager;
-            private readonly SignInManager<ApplicationUser> _signInManager;
-            private readonly SFSDBContect _context;
-            private readonly IStringLocalizer<HomeController> _Localizer;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly SFSDBContect _context;
+        private readonly IStringLocalizer<HomeController> _Localizer;
 
-            public HomeController(
-                SFSDBContect context,
-                IStringLocalizer<HomeController> localizer,
-                UserManager<ApplicationUser> userManager,
-                SignInManager<ApplicationUser> signInManager)
-            {
-                _context = context;
-                _Localizer = localizer;
-                _userManager = userManager;
-                _signInManager = signInManager;
-            }
+        public HomeController(
+            SFSDBContect context,
+            IStringLocalizer<HomeController> localizer,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
+        {
+            _context = context;
+            _Localizer = localizer;
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
         public async Task<IActionResult> Index()
         {
-            return View();
+            var ALLCource = await _context.Courses.ToListAsync();
+            return View(ALLCource);
         }
-   
-            [HttpPost]
-            public async Task<IActionResult> Register(string FirstName, string LastName, string Email,string StudentID,  string PhoneNumber, string Password, string ConfirmPass , string UserType , string Desc , string QualificationCourses , string Major , int Level , float GPA)
+
+        [HttpPost]
+        public async Task<IActionResult> Register(string FirstName, string LastName, string Email, string StudentID, string PhoneNumber, string Password, string ConfirmPass, string UserType, string Desc, string QualificationCourses, string Major, int Level, float GPA, int LevelFT, string MajorFT)
+        {
+            if (Password != ConfirmPass)
             {
-                if (Password != ConfirmPass)
-                {
-                    TempData["errorRegister"] = "Password and Confirm Password dose not match.";
-                    return RedirectToAction("Register");
-                }
+                TempData["errorRegister"] = "Password and Confirm Password dose not match.";
+                return RedirectToAction("Register");
+            }
             if (Password.Length < 8 || !Password.Any(ch => !char.IsLetterOrDigit(ch)))
             {
                 TempData["errorRegister"] = "Password must be at least 8 characters long and contain at least one special character.";
@@ -64,39 +65,39 @@ namespace StudentsForStudents.Controllers
             if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(Email) ||
                     string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPass) ||
                      (Password != ConfirmPass))
-                {
-                    TempData["errorRegister"] = "All filed are required data.";
-                    return RedirectToAction("Register"); // Corrected to RedirectToAction("Register")
-                }
-                var existingUser = await _userManager.FindByEmailAsync(Email);
-                if (existingUser != null)
-                {
-                    TempData["errorRegister"] = "The provided email address is already registered.";
-                    return RedirectToAction("Register");
-                }
+            {
+                TempData["errorRegister"] = "All filed are required data.";
+                return RedirectToAction("Register"); // Corrected to RedirectToAction("Register")
+            }
+            var existingUser = await _userManager.FindByEmailAsync(Email);
+            if (existingUser != null)
+            {
+                TempData["errorRegister"] = "The provided email address is already registered.";
+                return RedirectToAction("Register");
+            }
 
-                existingUser = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == PhoneNumber);
-                if (existingUser != null)
-                {
-                    TempData["errorRegister"] = "The provided phone number is already registered.";
-                    return RedirectToAction("Register");
-                }
+            existingUser = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == PhoneNumber);
+            if (existingUser != null)
+            {
+                TempData["errorRegister"] = "The provided phone number is already registered.";
+                return RedirectToAction("Register");
+            }
 
-                var newUser = new ApplicationUser
-                {
-                    UserName = Email,
-                    Email = Email,
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    PhoneNumber = PhoneNumber,
-                    EmailConfirmationToken = Guid.NewGuid().ToString(),
-                    UserType = UserType
-                };
-                
-                var result = await _userManager.CreateAsync(newUser, Password);
-                // await _context.SaveChangesAsync();
-                if (result.Succeeded)
-                {
+            var newUser = new ApplicationUser
+            {
+                UserName = Email,
+                Email = Email,
+                FirstName = FirstName,
+                LastName = LastName,
+                PhoneNumber = PhoneNumber,
+                EmailConfirmationToken = Guid.NewGuid().ToString(),
+                UserType = UserType
+            };
+
+            var result = await _userManager.CreateAsync(newUser, Password);
+            // await _context.SaveChangesAsync();
+            if (result.Succeeded)
+            {
                 if (UserType == "Teacher")
                 {
                     var newTeacher = new Teacher();
@@ -104,17 +105,17 @@ namespace StudentsForStudents.Controllers
                     newTeacher.FirstName = FirstName;
                     newTeacher.LastName = LastName;
                     newTeacher.PhoneNumber = PhoneNumber;
-                    newTeacher.Major = Major;
+                    newTeacher.Major = MajorFT;
                     newTeacher.Desc = Desc;
                     newTeacher.StudentId = StudentID;
                     newTeacher.QualificationCourses = QualificationCourses;
                     newTeacher.GPA = GPA;
-                    newTeacher.Level = Level;
+                    newTeacher.Level = LevelFT;
 
                     await _context.Teacher.AddAsync(newTeacher);
                     _context.SaveChanges();
                 }
-                if (UserType == "Student")
+                else if (UserType == "Student")
                 {
                     var newStudent = new Student();
                     newStudent.Email = Email;
@@ -124,36 +125,41 @@ namespace StudentsForStudents.Controllers
                     newStudent.StudentId = StudentID;
                     newStudent.Major = Major;
                     newStudent.Level = Level;
-
+                
                     await _context.Students.AddAsync(newStudent);
                     _context.SaveChanges();
-                    // Generate confirmation token
-                    var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                
 
-                    // Send confirmation email
-                    var callbackUrl = Url.Action(
-                        "ConfirmEmail",
-                        "Home",
-                        new { userId = newUser.Id },
-                        protocol: HttpContext.Request.Scheme);
-
-                    await SendConfirmationEmail(newUser.Id, "Confirm Your Account", HtmlEncoder.Default.Encode(callbackUrl), confirmationToken);
-
-                    TempData["messageLogin"] = "Registration successful. Please check your email for confirmation instructions.";
-                    return RedirectToAction("Login");
+                
+                
                 }
+                // Generate confirmation token
+                var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
 
+                // Send confirmation email
+                var callbackUrl = Url.Action(
+                    "ConfirmEmail",
+                    "Home",
+                    new { userId = newUser.Id },
+                    protocol: HttpContext.Request.Scheme);
+
+                await SendConfirmationEmail(newUser.Id, "Confirm Your Account", HtmlEncoder.Default.Encode(callbackUrl), confirmationToken);
+
+                TempData["messageLogin"] = "Registration successful. Please check your email for confirmation instructions.";
+                return RedirectToAction("Login");
+    
                
             }
 
                 foreach (var error in result.Errors)
                 {
-                    TempData["error"] = error.Description;
+                    TempData["errorRegister"] = error.Description;
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
 
                 return View();
             }
+ 
 
             [HttpPost]
             public async Task<IActionResult> Login(string Email, string Password)
@@ -200,6 +206,7 @@ namespace StudentsForStudents.Controllers
 
                 }, null, TimeSpan.FromSeconds(3600), Timeout.InfiniteTimeSpan);
 
+
             //        if (userToLogin.UserType == "Admin")
             //        {
             //            //HttpContext.Session.Set("IsAdmin", true);
@@ -227,10 +234,15 @@ namespace StudentsForStudents.Controllers
             //            TempData["errorLogin"] = "You must be Admin";
             //
             //        }
-                        return RedirectToAction("Index", "Home");
+
+            if (userToLogin.UserType == "Teacher")
+                return RedirectToAction("Index", "Teacher");
+
+            return RedirectToAction("Index", "Home");
+
+
 
         }
-
         private async Task SendConfirmationEmail(string userId, string subject, string htmlMessage, string confirmationToken)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -244,18 +256,20 @@ namespace StudentsForStudents.Controllers
                     using (var smtpClient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587))
                     {
                         smtpClient.EnableSsl = true;
-                        smtpClient.Credentials = new NetworkCredential("studentforstudentteam@gmail.com", GoogleAppPassword);
+                        smtpClient.Credentials = new NetworkCredential("studentforstudentteam@gmail.com", "tarh ynmj ttnv orwj");
 
                         var mailMessage = new MailMessage
                         {
-                            From = new MailAddress("studentforstudentteam@gmail.com", "Student For Student Team@"),
-                            Subject = subject,
+                            From = new MailAddress("studentforstudentteam@gmail.com", "Student for Student Team"),
+                            Subject = "Contact Form Web",
                             IsBodyHtml = true,
                             Body = GenerateHtmlMessage(firstName, htmlMessage) // Generate HTML with personalized greeting and image
                         };
 
                         mailMessage.To.Add(email);
                         await smtpClient.SendMailAsync(mailMessage);
+                        TempData["success"] = "Message sent successfully.";
+
                     }
                 }
                 catch (Exception ex)
@@ -263,6 +277,7 @@ namespace StudentsForStudents.Controllers
                     TempData["error"] = $"Error sending email: {ex.Message}";
                 }
             }
+
         }
 
         private string GenerateHtmlMessage(string firstName, string callbackUrl)
@@ -357,11 +372,18 @@ namespace StudentsForStudents.Controllers
                 }
             }
 
-            [HttpPost]
-            public async Task<IActionResult> SendContactForm(string Name, string Email, string PhoneNumber, string Message)
+
+            [HttpGet]
+            public async Task<IActionResult> SendContactForm(string Name, string Email, string Message)
             {
-                var body = $"Name: {Name}\nEmail: {Email}\nPhone Number: {PhoneNumber}\nMessage: {Message}";
-                if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrEmpty(Message))
+             return View();
+            }
+
+            [HttpPost]
+            public async Task<IActionResult> SendContactFormm(string Name, string Email, string Message)
+            {
+                var body = $"Name: {Name}\nEmail: {Email}\nMessage: {Message}";
+                if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) ||string.IsNullOrEmpty(Message))
                 {
                     TempData["error"] = "All fields are required.";
                     return RedirectToAction("Contact");
@@ -369,15 +391,15 @@ namespace StudentsForStudents.Controllers
 
                 try
                 {
-                    using (var smtpClient = new System.Net.Mail.SmtpClient("smtp.hostinger.com", 587))
-                    {
-                        smtpClient.EnableSsl = true;
-                        smtpClient.Credentials = new NetworkCredential("studentforstudentteam@gmail.com", "tarh ynmj ttnv orwj\r");
+                  using (var smtpClient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtpClient.EnableSsl = true;
+                        smtpClient.Credentials = new NetworkCredential("studentforstudentteam@gmail.com", "tarh ynmj ttnv orwj");
 
                         // Create a MailMessage object
                         var mailMessage = new MailMessage
                         {
-                            From = new MailAddress("studentforstudentteam@gmail.com@", "Student for Student Team"), // Your email address
+                            From = new MailAddress("studentforstudentteam@gmail.com", "Student for Student Team"), 
                             Subject = "Contact Form Web",
                             Body = body,
                             IsBodyHtml = false // Set to true if the body contains HTML
@@ -400,7 +422,7 @@ namespace StudentsForStudents.Controllers
                     TempData["error"] = $"Error sending message: {ex.Message}";
                 }
 
-                return RedirectToAction("Contact");
+                return RedirectToAction("SendContactForm");
             }
 
             private bool IsValidEmail(string email)
@@ -573,7 +595,11 @@ namespace StudentsForStudents.Controllers
 
 
 
+        public async Task<IActionResult> About()
+        {
+            return View();
+        }
 
-  
+
     }
 }

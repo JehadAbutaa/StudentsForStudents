@@ -32,6 +32,8 @@ namespace StudentsForStudents.Models.EntityTypeConfig
 
             builder.Property(x => x.Level).IsRequired();
 
+            builder.Property(x => x.ImgPath).IsRequired(false);
+
         }
     }
 }

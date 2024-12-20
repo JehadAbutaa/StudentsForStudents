@@ -1,398 +1,549 @@
-﻿@{
+﻿@model IEnumerable<StudentsForStudents.Models.Courses>
+@{
     Layout = null;
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx" class="no-js">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Dashboard</title>
-   
-    <style>
-   /* General Styles */
-   body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    
-    
-}
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/Theme/img/fav.png" />
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib" />
+    <!-- Meta Description -->
+    <meta name="description" content="" />
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="" />
+    <!-- meta character set -->
+    <meta charset="UTF-8" />
+    <!-- Site Title -->
+    <title>Student For Student</title>
 
-/* Header Styling */
-header {
-    background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%);
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    width: 100%; 
-}
-
-header h1 {
-    margin: 0;
-}
-
-header nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    margin: 0;
-}
-
-header nav ul li {
-    display: inline;
-    margin-right: 15px;
-}
-
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1em;
-}
-
-header nav ul li a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-/* Mobile Navbar (Hamburger Menu) */
-header .menu-toggle {
-    display: none;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 2em;
-    cursor: pointer;
-}
-
-header nav ul {
-    display: flex;
-}
-
-header nav ul li {
-    margin: 0 15px;
-}
-
-header nav ul li a {
-    font-size: 1.1em;
-}
-
-/* Footer Styling */
-footer {
-    background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%);
-    color: white;
-    text-align: center;
-    padding: 10px;
-    
-    width: 101%; /* Ensure footer takes full width */
-    margin-bottom: auto;
-}
-
-/* Dashboard Layout */
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 20px;
-}
-
-.dashboard-container {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-/* Sidebar Styling */
-.sidebar {
-    width: 20%;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-right: 20px; /* Prevent content from touching sidebar */
-}
-
-.sidebar h2 {
-    color: #7c32ff;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 15px 0;
-}
-
-.sidebar ul li a {
-    color: #333;
-    text-decoration: none;
-    font-size: 1.1em;
-}
-
-.sidebar ul li a:hover {
-    color: #7c32ff;
-}
-
-/* Main Content Styling */
-.dashboard-main {
-    width: 75%;
-}
-
-.dashboard-main h2 {
-    color: #7c32ff;
-}
-
-/* Courses Section */
-.courses-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.courses-section ul li {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Appointments Table */
-.appointments-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-}
-
-.appointments-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 10px;
-    text-align: center;
-}
-
-th {
-    background-color: #7c32ff;
-    color: white;
-}
-
-.cancel-btn {
-    background-color: #e74c3c;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.cancel-btn:hover {
-    background-color: #c0392b;
-}
-
-/* Schedule Form Styling */
-.schedule-form input {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    width: 70%;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.schedule-form button {
-    
-    background: linear-gradient(390deg, #7c32ff 0%, #c738d8 100%);
-    color: white;
-    cursor: pointer;
-    padding: 10px 20px;
-    
-}
-
-.schedule-form button:hover {
-    background-color: #5b26cc;
-}
-
-/* Responsive Styles */
-
-/* Mobile View */
-@@media (max-width: 768px) {
-    header h1 {
-        font-size: 1.5em;
-    }
-
-    /* Show the menu toggle (hamburger) icon */
-    header .menu-toggle {
-        display: block;
-    }
-
-    /* Stack the menu items vertically */
-    header nav ul {
-        display: none;
-        flex-direction: column;
-        background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%);
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        padding: 20px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    header nav ul li {
-        margin: 10px 0;
-        text-align: center;
-    }
-
-    header nav ul li a {
-        font-size: 1.3em;
-    }
-
-    /* When the menu is toggled, display the links */
-    header nav ul.show {
-        display: flex;
-    }
-
-    /* Adjust the sidebar and main content on mobile */
-    .sidebar {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .dashboard-main {
-        width: 100%;
-    }
-}
-
-/* Large Screens */
-@@media (min-width: 769px) {
-    header .menu-toggle {
-        display: none;
-    }
-
-    /* Prevent sidebar from overflowing */
-    .container {
-        max-width: 100vw;
-        overflow-x: hidden;
-    }
-
-    .sidebar {
-        width: 10%;
-    }
-
-    .dashboard-main {
-        width: 80%;
-    }
-}
-
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Roboto:400,400i,500,700" rel="stylesheet" />
+    <!--
+        CSS
+        =============================================
+      -->
+    <link rel="stylesheet" href="~/Theme/css/linearicons.css" />
+    <link rel="stylesheet" href="~/Theme/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Theme/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Theme/css/magnific-popup.css" />
+    <link rel="stylesheet" href="~/Theme/css/owl.carousel.css" />
+    <link rel="stylesheet" href="~/Theme/css/nice-select.css">
+    <link rel="stylesheet" href="~/Theme/css/hexagons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css" />
+    <link rel="stylesheet" href="~/Theme/css/main.css" />
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <h1>Teacher Dashboard</h1>
-            <nav>
-                <ul>
-                    
-                   <!-- <li><a href="logout.html">Logout</a></li>--> 
-                </ul>
-            </nav>
+    <!-- ================ Start Header Area ================= -->
+    <header class="default-header">
+        <nav class="navbar navbar-expand-lg  navbar-light">
+            <div class="container">
+                <nav class="navbar navbar-light bg-light">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://i.postimg.cc/mrnnbFDf/LogoSFS1.png" alt="Logo">
+                    </a>
+                </nav>
+
+                <style>
+                    .navbar-brand img {
+                        width: 100px; /* Set the logo width */
+                        height: auto; /* Keep aspect ratio */
+                    }
+                </style>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="lnr lnr-menu"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li><a asp-controller="Teacher" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Teacher" asp-action="TeacherDashbord">Teacher Dashboard</a></li>
+                        <li><a asp-controller="Teacher" asp-action="AddCourses">Add Courses</a></li>
+                        <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
+                        <li>
+                            <button class="search">
+                                <span class="lnr lnr-magnifier" id="search"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="search-input" id="search-input-box">
+            <div class="container">
+                <form class="d-flex justify-content-between">
+                    <input type="text" class="form-control" id="search-input" placeholder="Search Here" />
+                    <button type="submit" class="btn"></button>
+                    <span class="lnr lnr-cross" id="close-search" title="Close Search"></span>
+                </form>
+            </div>
         </div>
     </header>
+    <!-- ================ End Header Area ================= -->
 
-    <!-- Main Content -->
-    <div class="container dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <h2>Quick Links</h2>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="">Logout</a></li>
-            </ul>
-        </aside>
+    <!-- ================ start banner Area ================= -->
+    <section class="home-banner-area">
+        <div class="container">
+            <div class="row justify-content-center align-items-center fullscreen" style="height: 100vh;">
+                <!-- Full height container for better centering -->
+                <!-- Left text section -->
+                <div class="col-lg-5 col-md-6 home-banner-left d-flex flex-column justify-content-center" style="margin-top: -30px;">
+                    <!-- Flexbox for vertical alignment -->
+                    <!-- Heading with custom margin -->
+                    <h2 class="text-white" style="margin-bottom: 20px; text-align: left;">
+                        Empowering Students By Students
 
-        <!-- Main Content Section -->
-        <main class="dashboard-main">
-            <section class="courses-section">
-                <h2>Your Courses</h2>
-                <ul class="courses-list">
-                    <li>Mathematics 101</li>
-                    <li>Physics 202</li>
-                    <li>Computer Science 301</li>
-                    <li>Chemistry 104</li>
-                </ul>
-            </section>
+                        Together, We Shape Our Future.
+                    </h2>
 
-            <section class="appointments-section">
-                <h2>Upcoming Appointments</h2>
-                <table class="appointments-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Student</th>
-                            <th>Subject</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2024-12-20</td>
-                            <td>10:00 AM</td>
-                            <td>omar faraj</td>
-                            <td>Mathematics</td>
-                            <td><button class="cancel-btn">Cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td>2024-12-22</td>
-                            <td>2:00 PM</td>
-                            <td>muhannad zaidan</td>
-                            <td>Physics</td>
-                            <td><button class="cancel-btn">Cancel</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+                    <!-- Paragraph with custom margin -->
+                    <p class="mx-auto text-white mt-20 mb-40" style="text-align: left; margin-top: 0;">
+                        Teach, Learn, and Earn
+                        <br>
+                        We Build a Community Where Students Become Mentors, and Mentors Earn for Sharing Knowledge.
+                        Join Us, and Transform Your Expertise into Opportunity!
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </p>
+                </div>
 
-            <section class="schedule-section">
-                <h2>Manage Schedule</h2>
-                <form action="add_schedule.php" method="POST" class="schedule-form">
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" name="date" required>
+                <!-- Right image section -->
+                <div class="offset-lg-2 col-lg-5 col-md-12 home-banner-right">
+                    <img class="img-fluid" src="~/Theme/img/header-img.png" alt="" />
+                </div>
 
-                    <label for="time">Time:</label>
-                    <input type="time" id="time" name="time" required>
+            </div>
+        </div>
+    </section>
 
-                    <label for="subject">Course/Subject:</label>
-                    <input type="text" id="subject" name="subject" required>
+    <!-- ================ End banner Area ================= -->
+    <!-- ================ Start Feature Area ================= -->
+    <section class="feature-area">
+        <div class="container-fluid">
+            <div class="feature-inner row">
+                <div class="col-lg-2 col-md-6">
+                    <div class="feature-item d-flex">
+                        <i class="ti-book"></i>
+                        <div class="ml-20">
+                            <h4>Classes</h4>
+                            <p>
+                                Peer-to-Peer Online Classes, Empowering Students to Teach and Learn
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="feature-item d-flex">
+                        <i class="ti-cup"></i>
+                        <div class="ml-20">
+                            <h4>Courses</h4>
+                            <p>
+                                Courses for Every Major, Tailored to Your Interests
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="feature-item d-flex border-right-0">
+                        <i class="ti-desktop"></i>
+                        <div class="ml-20">
+                            <h4>Secure Payment System</h4>
+                            <p>
+                                Our advanced points system ensures secure transactions, holding payments until the student confirms they've learned, preventing fraud and guaranteeing fair exchanges.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Feature Area ================= -->
+    <!-- ================ Start Popular Course Area ================= -->
+    <section class="popular-course-area section-gap">
+        <div class="container-fluid">
+            <div class="row justify-content-center section-title">
+                <div class="col-lg-12">
+                    <h2>Popular Courses <br /> Available Right Now</h2>
+                    <p>
+                        Explore the most popular courses that can boost your skills and knowledge in various domains.
+                    </p>
+                </div>
+            </div>
+            <div class="owl-carousel popuar-course-carusel">
+                @foreach (var item in Model)
+                {
+                    <div class="single-popular-course">
+                        <div class="thumb">
+                            <img class="f-img img-fluid mx-auto" src="@Html.DisplayFor(modelItem => item.ImgPath)" alt="" />
+                        </div>
+                        <div class="details">
+                            <div class="d-flex justify-content-between mb-20">
+                                <p class="name">@Html.DisplayFor(modelItem => item.Name)</p>
+                            </div>
+                            <a href="#">
+                                <h4>@Html.DisplayFor(modelItem => item.Description)</h4>
+                            </a>
+                            <div class="bottom d-flex mt-15">
+                                <ul class="list">
+                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                </ul>
+                                <a asp-controller="Home" asp-action="GetAllTeacher" asp-route-courseName="@item.Name" class="ml-20"> View Teachers</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Popular Course Area ================= -->
+    <!-- ================ Start Video Area ================= -->
+    <section class="video-area section-gap-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <div class="section-title text-white">
+                        <h2 class="text-white">
+                            Meet the best teachers<br>
+                            from your university colleagues
+                        </h2>
+                        <p>
+                            Learn live through interactive learning sessions or via instant messaging tailored to your needs.
+                        </p>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-md-6 video-left">
+                    <div class="owl-carousel video-carousel">
+                        <div class="single-video">
+                            <div class="video-part">
+                                <img class="img-fluid" src="~/Theme/img/video-img.jpg" alt="">
+                                <div class="overlay"></div>
 
-                    <button type="submit">Add Schedule</button>
-                </form>
-            </section>
-        </main>
-    </div>
+                            </div>
+                            <h4 class="text-white mb-20 mt-30">Learn in innovative ways with your university colleagues</h4>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 "Student For Student" Platform.</p>
+                        </div>
+
+                        <div class="single-video">
+
+                            <h4 class="text-white mb-20 mt-30"></h4>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Video Area ================= -->
+    <!-- ================ Start Feature Area ================= -->
+    <section class="other-feature-area">
+        <div class="container">
+            <div class="feature-inner row">
+                <div class="col-lg-12">
+                    <div class="section-title text-left">
+                        <h2>
+                            Features Available <br />
+                            for Everyone
+                        </h2>
+                        <p>
+
+                            Our platform offers a range of features designed
+                            to meet the needs of both students and tutors,
+                            ensuring a seamless and engaging learning
+                            experience for everyone.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="other-feature-item">
+                        <i class="ti-search"></i>
+                        <h4>Advanced Tutor Search:</h4>
+                        <div>
+                            <p>
+                                The platform offers an intelligent search system that enables students to quickly find the most suitable tutor based on their preferences. Users can filter results by subject expertise, ratings and reviews, availability, and price range. This ensures that students connect with tutors who meet their academic needs, schedules, and budgets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt--160">
+                    <div class="other-feature-item">
+                        <i class="ti-comments"></i>
+                        <h4>Instant Messaging System:</h4>
+                        <div>
+                            <p>
+                                A built-in messaging feature allows seamless communication between students and tutors. This enables users to discuss topics, session requirements, or clarify doubts before and after sessions. Notifications ensure users never miss an important message.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt--260">
+                    <div class="other-feature-item">
+                        <i class="ti-star"></i>
+                        <h4>Ratings and Reviews System:</h4>
+                        <div>
+                            <p>
+                                A built-in messaging feature allows seamless communication between students and tutors. This enables users to discuss topics, session requirements, or clarify doubts before and after sessions. Notifications ensure users never miss an important message.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="other-feature-item">
+                        <i class="ti-calendar"></i>
+                        <h4>Integrated Scheduling and Calendar:</h4>
+                        <div>
+                            <p>
+                                The platform includes an interactive calendar system where tutors can manage their availability, and students can book sessions directly. This system eliminates back-and-forth communication about scheduling by showing real-time availability. Users can reschedule or cancel sessions effortlessly.
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt--160">
+                    <div class="other-feature-item">
+                        <i class="ti-credit-card"></i>
+                        <h4>Secure Payment System:</h4>
+                        <div>
+                            <p>
+                                The platform supports secure online transactions for booking tutoring sessions. Multiple payment methods are available, including credit/debit cards and digital wallets. A transparent pricing model ensures there are no hidden fees, and transactions are protected with encryption.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt--260">
+                    <div class="other-feature-item">
+                        <i class="ti-id-badge"></i>
+                        <h4>Personalized Student and Tutor Profiles:</h4>
+                        <div>
+                            <p>
+                                Both students and tutors can create detailed profiles to enhance their experience on the platform. Tutors can showcase their qualifications, teaching style, and subjects offered, while students can set preferences for their learning needs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Feature Area ================= -->
+    <!-- ================ Start Testimonials Area ================= -->
+    <section class="testimonials-area section-gap">
+        <div class="container">
+            <div class="testi-slider owl-carousel" data-slider-id="1">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="item">
+                            <div class="testi-item">
+
+                                <div class="mt-40 text">
+                                    <p>
+                                        <b><h6 style="font-size:3vw">STUDENT FOR STUDENT ..</h6></b><br>
+                                        Join a community where knowledge meets inspiration. Together, we turn every question into an opportunity and every challenge into success. Your journey starts here!
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="offset-lg-1 col-lg-6">
+                        <img src="~/Theme/img/testimonial/t1.jpg" alt="" />
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="item">
+                            <div class="testi-item">
+
+                                <div class="mt-40 text">
+                                    <p>
+                                        As passionate learners, we believe in the power of connection and shared knowledge. <br />
+                                        Every step you take here is a step towards growth, innovation, and creating a brighter future together.
+                                    </p>
+                                </div>
+                                <h4>...</h4>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="offset-lg-1 col-lg-6">
+                        <img src="~/Theme/img/testimonial/t1.jpg" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Testimonials Area ================= -->
+    <!-- ================ Start Blog Post Area ================= -->
+    <section class="blog-post-area section-gap">
+        <div class="container-fluid">
+            <div class="feature-inner row">
+                <div class="col-lg-12">
+                    <div class="section-title text-left">
+                        <h2>
+                            <i class="ti-comments"></i>
+                            Inspiring student
+                            success stories with<br /> our educational platform
+                        </h2>
+                        <p>
+                            Hear from students who have shared their positive experiences with us! Discover how our platform has helped them achieve their academic goals with ease and confidence. Reviews are full of enthusiasm and praise for the flexibility of the system and the quality of the teachers. Read more to inspire your study journey...
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blog-post">
+                        <img src="~/Theme/img/blog-post/b1.jpg" class="img-fluid" alt="" />
+                        <div class="overlay"></div>
+                        <div class="top-text">
+                            <p>18th, des, 2024</p>
+                            <p>121 likes</p>
+                            <p>25 comments</p>
+                        </div>
+                        <div class="text">
+                            <h4 class="text-white">Rania Khaleid</h4>
+                            <div>
+                                <p>
+                                    The platform is amazing! Easy to use, professional teachers who helped me improve my academic level a lot. Unforgettable experience.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt--160">
+                    <div class="single-blog-post">
+                        <img src="~/Theme/img/blog-post/b2.jpg" class="img-fluid" alt="" />
+                        <div class="overlay"></div>
+                        <div class="top-text">
+                            <p>20th, des, 2024</p>
+                            <p>139 likes</p>
+                            <p>12 comments</p>
+                        </div>
+                        <div class="text">
+                            <h4 class="text-white">Layan Adel</h4>
+                            <div>
+                                <p>
+                                    Amazing experience! The teachers are top notch, the platform is organized and easy.
+                                    I feel a huge improvement in my studies thanks to it.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt--260">
+                    <div class="single-blog-post">
+                        <img src="~/Theme/img/blog-post/b3.jpg" class="img-fluid" alt="" />
+                        <div class="overlay"></div>
+                        <div class="top-text">
+                            <p>22th, des, 2024</p>
+                            <p>220 likes</p>
+                            <p>30 comments</p>
+                        </div>
+                        <div class="text">
+                            <h4 class="text-white">Yousef Mahmoud</h4>
+                            <div>
+                                <p>
+                                    Best platform ever! Smooth booking, great teachers,
+                                    and an experience that made me more confident academically. Thank you
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End Blog Post Area ================= -->
+    <!-- ================ start footer Area ================= -->
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <br>
+                    <br>
+
+
+                    <h4>About Us</h4>
+                    <p>
+                        Student for Student is a platform where students teach each other and get paid, creating a collaborative learning environment.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <br>
+                    <br>
+
+
+                    <h4>Contact</h4>
+                    <p>
+                        Address: university of petra<br>
+                        Email: studentforstudent@gmail.com<br>
+                        Phone: +962 790 000 000
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <br>
+                    <br>
+
+
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Student Guide</a></li>
+                        <li><a href="#">Teacher FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <br>
+                    <br>
+
+
+                    <h4>Follow Us</h4>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom row align-items-center">
+                <p class="footer-text m-0 col-lg-12 text-center">
+                    &copy;<script>document.write(new Date().getFullYear());</script> Student for Student
+                </p>
+            </div>
+
+        </div>
     </footer>
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('header nav ul');
-    
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-        });
-    </script>
-    
+    <!-- ================ End footer Area ================= -->
+
+    <script src="~/Theme/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="~/Theme/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="~/Theme/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Theme/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Theme/js/parallax.min.js"></script>
+    <script src="~/Theme/js/owl.carousel.min.js"></script>
+    <script src="~/Theme/js/jquery.sticky.js"></script>
+    <script src="~/Theme/js/hexagons.min.js"></script>
+    <script src="~/Theme/js/jquery.counterup.min.js"></script>
+    <script src="~/Theme/js/waypoints.min.js"></script>
+    <script src="~/Theme/js/jquery.nice-select.min.js"></script>
+    <script src="~/Theme/js/main.js"></script>
 </body>
 
 </html>

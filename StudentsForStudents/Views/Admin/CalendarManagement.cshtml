@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+<div class="management-section">
+    <h3>Calendar</h3>
+    <div id="calendar-container">
+        <div id="calendar"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: "auto", // Adjust the calendar size to fit
+        events: [
+            {
+                title: 'Team Meeting',
+                start: '2024-12-20',
+                end: '2024-12-21',
+            },
+            {
+                title: 'Project Deadline',
+                start: '2024-12-25',
+            },
+        ],
+    });
+    calendar.render();
+});
+</script>
+
+
+

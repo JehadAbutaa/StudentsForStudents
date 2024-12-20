@@ -1,0 +1,313 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Delete";
+}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    <style>
+         .teacher-description-area {
+    position: relative;
+    top: -100px;  /* Moves the section up */
+    right:0%
+    
+  }
+
+  .btn{
+        display: block;
+         background: linear-gradient(390deg, #7c32ff 0%, #c738d8 100%);
+         color: white;
+         cursor: pointer;
+         margin: 0 auto; /* Centers it horizontally */
+        max-width: 220px; 
+        text-align: center; 
+    }
+
+  .teacher-description-area .feature-item {
+    padding-left: 0; /* Removes any extra padding if needed */
+    
+
+    }  
+    
+    
+
+    @@media (max-width: 768px) {
+        .btn {
+            width: 80%; /* Ensures it takes up a reasonable width on smaller screens */
+            
+        }
+        .teacher-description-area{
+
+            width: 80%;
+        }
+       
+        
+    }
+</style>
+
+        </style>
+   
+  <!-- Mobile Specific Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="~/Theme/img/fav.png" />
+  <!-- Author Meta -->
+  <meta name="author" content="colorlib" />
+  <!-- Meta Description -->
+  <meta name="description" content="" />
+  <!-- Meta Keyword -->
+  <meta name="keywords" content="" />
+  <!-- meta character set -->
+  <meta charset="UTF-8" />
+  <!-- Site Title -->
+  <title>Eclipse Education</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Roboto:400,400i,500,700" rel="stylesheet" />
+  <!--
+      CSS
+      =============================================
+    -->
+  <link rel="stylesheet" href="~/Theme/css/linearicons.css" />
+  <link rel="stylesheet" href="~/Theme/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="~/Theme/css/bootstrap.css" />
+  <link rel="stylesheet" href="~/Theme/css/magnific-popup.css" />
+  <link rel="stylesheet" href="~/Theme/css/owl.carousel.css" />
+  <link rel="stylesheet" href="~/Theme/css/nice-select.css">
+  <link rel="stylesheet" href="~/Theme/css/hexagons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css" />
+  <link rel="stylesheet" href="~/Theme/css/main.css" />
+</head>
+
+<body>
+    <!-- ================ Start Header Area ================= -->
+    <header class="default-header">
+        <nav class="navbar navbar-expand-lg  navbar-light">
+            <div class="container">
+                <nav class="navbar navbar-light bg-light">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://i.postimg.cc/mrnnbFDf/LogoSFS1.png" alt="Logo">
+                    </a>
+                </nav>
+
+                <style>
+                    .navbar-brand img {
+                        width: 100px; /* Set the logo width */
+                        height: auto; /* Keep aspect ratio */
+                    }
+                </style>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="lnr lnr-menu"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li><a asp-controller="Teacher" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Teacher" asp-action="TeacherDashbord">Teacher Dashboard</a></li>
+                        <li><a asp-controller="Teacher" asp-action="AddCourses">Add Courses</a></li>
+                        <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
+                        <li>
+                            <button class="search">
+                                <span class="lnr lnr-magnifier" id="search"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="search-input" id="search-input-box">
+            <div class="container">
+                <form class="d-flex justify-content-between">
+                    <input type="text" class="form-control" id="search-input" placeholder="Search Here" />
+                    <button type="submit" class="btn"></button>
+                    <span class="lnr lnr-cross" id="close-search" title="Close Search"></span>
+                </form>
+            </div>
+        </div>
+    </header>
+    <!-- ================ End Header Area ================= -->
+
+
+	<!-- ================ start banner Area ================= -->
+	<section class="banner-area">
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-lg-12 banner-right">
+					<h1 class="text-white">
+						Add Courses
+					</h1>
+					<p class="mx-auto text-white  mt-20 mb-40">
+                        
+                        
+                       
+                  
+					<div class="link-nav">
+						<span class="box">
+							<a href="index.html">Home </a>
+							<i class="lnr lnr-arrow-right"></i>
+							<a href="addcourse.html">Add Courses</a>
+						</span>
+					</div>
+			   </div>
+			</div>
+		</div>
+	</section>
+	<!-- ================ End banner Area ================= -->
+     <!-- ================ Start Teacher Description Area ================= -->
+<section class="teacher-description-area">
+    <div class="container-fluid">
+   
+        <div class="col-lg-7 col-md-8">
+          <div class="feature-item d-flex">
+            <i class="ti-info-alt"></i>
+            <div class="ml-20">
+              <h4>Important Instructions for Teachers</h4>
+              <p>
+                As a teacher, you are required to enter the following details when adding a course:
+              </p>
+              <ul>
+                <li>Provide the course name.</li>
+                <li>Write a brief description of the course.</li>
+                <li>Select the faculty that the course belongs to.</li>
+              </ul>
+              <p>
+                Once you have submitted the course, it will be sent for approval. Please wait for the approval process to complete before the course becomes available.
+              </p>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================ End Teacher Description Area ================= -->
+  
+
+<!-- ================ Start Add Course Area ================= -->
+<section class="add-course-area section-gap">
+    <div class="container">
+        
+        <form id="add-course-form">
+            <!-- Course Name -->
+            <div class="form-group">
+                <label for="course-name">Course Name:</label>
+                <input type="text" class="form-control" id="course-name" placeholder="Enter the course name" required>
+            </div>
+
+            <!-- Course Description -->
+            <div class="form-group">
+                <label for="course-description">Course Description:</label>
+                <textarea class="form-control" id="course-description" rows="5" placeholder="Provide a brief description of the course" required></textarea>
+            </div>
+
+            <!-- Select Faculty -->
+            <div class="form-group">
+                
+                <select class="form-control" id="faculty" required>
+                    <option value="" disabled selected>Select a faculty</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Engineering and Technology">Engineering and Technology</option>
+                    <option value="Science">Science</option>
+                    <option value="Business and Economics">Business and Economics</option>
+                    <option value="Arts and Humanities">Arts and Humanities</option>
+                    <option value="Law">Law</option>
+                </select>
+            </div>
+            <br>
+            <br>
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit Course for Approval</button>
+            </div>
+        </form>
+
+        <!-- Confirmation Message -->
+        <div id="confirmation-message" class="alert alert-success mt-4" style="display: none;">
+            Your course submission is waiting for approval!
+        </div>
+    </div>
+</section>
+<!-- ================ End Add Course Area ================= -->
+
+<script>
+    // JavaScript for handling form submission
+    document.getElementById("add-course-form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Show confirmation message
+        document.getElementById("confirmation-message").style.display = "block";
+
+        // Clear form fields
+        document.getElementById("course-name").value = "";
+        document.getElementById("course-description").value = "";
+        document.getElementById("faculty").value = "";
+    });
+</script>
+
+
+  <!-- ================ start footer Area ================= -->
+<footer class="footer-area section-gap">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-6 single-footer-widget">
+				<h4>About Us</h4>
+				<p>
+					Student for Student is a platform where students teach each other and get paid, creating a collaborative learning environment.
+				</p>
+			</div>
+			<div class="col-lg-3 col-md-6 single-footer-widget">
+				<h4>Contact</h4>
+				<p>
+					Address: university of petra<br>
+					Email: studentforstudent@gmail.com<br>
+					Phone: +962 790 000 000
+				</p>
+			</div>
+			<div class="col-lg-3 col-md-6 single-footer-widget">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="#">Student Guide</a></li>
+					<li><a href="#">Teacher FAQs</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+				</ul>
+			</div>
+			<div class="col-lg-3 col-md-6 single-footer-widget">
+				<h4>Follow Us</h4>
+				<div class="footer-social">
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-instagram"></i></a>
+					<a href="#"><i class="fa fa-linkedin"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom row align-items-center">
+			<p class="footer-text m-0 col-lg-12 text-center">
+				 &copy;<script>document.write(new Date().getFullYear());</script> Student for Student 
+			</p>
+		</div>
+    <div> <p>      <br>     </p> </div>
+    <div> <p>      <br>    </p> </div>
+	</div>
+</footer>
+<!-- ================ End footer Area ================= -->
+
+
+  <script src="~/Theme/js/vendor/jquery-2.2.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
+  <script src="~/Theme/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+  <script src="~/Theme/js/jquery.ajaxchimp.min.js"></script>
+  <script src="~/Theme/js/jquery.magnific-popup.min.js"></script>
+  <script src="~/Theme/js/parallax.min.js"></script>
+  <script src="~/Theme/js/owl.carousel.min.js"></script>
+  <script src="~/Theme/js/jquery.sticky.js"></script>
+  <script src="~/Theme/js/hexagons.min.js"></script>
+  <script src="~/Theme/js/jquery.counterup.min.js"></script>
+  <script src="~/Theme/js/waypoints.min.js"></script>
+  <script src="~/Theme/js/jquery.nice-select.min.js"></script>
+  <script src="~/Theme/js/main.js"></script>
+</body>
+
+</html>

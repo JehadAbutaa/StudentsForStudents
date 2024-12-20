@@ -258,7 +258,7 @@ namespace StudentsForStudents.Migrations
                     b.Property<DateTime>("DateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2024, 12, 7, 20, 13, 47, 641, DateTimeKind.Local).AddTicks(5948));
+                        .HasDefaultValue(new DateTime(2024, 12, 20, 21, 18, 25, 304, DateTimeKind.Local).AddTicks(975));
 
                     b.Property<bool>("IsRead")
                         .ValueGeneratedOnAdd()
@@ -360,6 +360,28 @@ namespace StudentsForStudents.Migrations
                     b.ToTable("Lecture");
                 });
 
+            modelBuilder.Entity("StudentsForStudents.Models.Payment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<float>("amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("message")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payment");
+                });
+
             modelBuilder.Entity("StudentsForStudents.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -438,7 +460,6 @@ namespace StudentsForStudents.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("ImgPath")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("LastName")

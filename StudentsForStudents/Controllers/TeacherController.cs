@@ -26,12 +26,21 @@ namespace StudentsForStudents.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var ALLCource = await _context.Courses.ToListAsync();
+            return View(ALLCource);
+
+        }
+        public async Task<IActionResult> TeacherDashbord()
+        {
             var UsereMAIL = HttpContext.Session.GetString("UserEmail");
             var User = await _context.Teacher.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
             return View(User);
-            
-        }
 
+        }
+        public async Task <IActionResult> AddCourses()
+        {
+            return View();
+        }
         public async Task<IActionResult> TeacherProfile()
         {
             var UsereMAIL = HttpContext.Session.GetString("UserEmail");
@@ -44,6 +53,34 @@ namespace StudentsForStudents.Controllers
                 return View(User);
             else
                 RedirectToAction("Index");
+            return View(User);
+        }
+
+        public async Task<IActionResult> EditProfile(string FirstName, string LastName, string Email, string PhoneNumber, string Major, int Level, string Desc, string StudentId, string QualificationCourses, float GPA)
+        {
+            var UsereMAIL = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(UsereMAIL))
+            {
+                return RedirectToAction("Login");
+            }
+            var User = await _context.Teacher.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
+            if (User != null)
+            {
+                User.FirstName = FirstName;
+                User.LastName = LastName;
+                User.Email = Email;
+                User.PhoneNumber = PhoneNumber;
+                User.Major = Major;
+                User.Level = Level;
+                User.Desc = Desc;
+                User.StudentId = StudentId;
+                User.QualificationCourses = QualificationCourses;
+                User.GPA = GPA;
+                _context.Update(User);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Profile");
+            }
+
             return View(User);
         }
     }

@@ -166,6 +166,19 @@
         </select>
     </div>
 
+    <!-- Additional fields for Student -->
+    <div id="studentDetails" class="student-details" style="display: none;">
+        <div class="form-outline mb-3">
+            <input type="text" id="university" name="Major" class="form-control form-control-lg"
+                   placeholder="Enter your Major" />
+            <label class="form-label" for="Major">Major</label>
+        </div>
+        <div class="form-outline mb-3">
+            <input type="text" id="Level" name="Level" class="form-control form-control-lg"
+                   placeholder="Academic Year" />
+            <label class="form-label" for="Major">Academic Year</label>
+        </div>
+    </div>
     <!-- Additional fields for Teacher -->
     <div id="teacherDetails" class="teacher-details" style="display: none;">
         <div class="form-outline mb-3">
@@ -179,12 +192,12 @@
             <label class="form-label" for="QualificationCourses">QualificationCourses</label>
         </div>
         <div class="form-outline mb-3">
-            <input type="text" id="university" name="Major" class="form-control form-control-lg"
+            <input type="text" id="university" name="MajorFT" class="form-control form-control-lg"
                    placeholder="Enter your Major" />
             <label class="form-label" for="Major">Major</label>
         </div>
         <div class="form-outline mb-3">
-            <input type="text" id="Level" name="Level" class="form-control form-control-lg"
+            <input type="text" id="Level" name="LevelFT" class="form-control form-control-lg"
                    placeholder="Academic Year" />
             <label class="form-label" for="Major">Academic Year</label>
         </div>
@@ -195,19 +208,6 @@
         </div>
     </div>
 
-    <!-- Additional fields for Student -->
-    <div id="studentDetails" class="student-details" style="display: none;">
-        <div class="form-outline mb-3">
-            <input type="text" id="studentMajor" name="StudentMajor" class="form-control form-control-lg"
-                   placeholder="Enter your major" />
-            <label class="form-label" for="studentMajor">Major</label>
-        </div>
-        <div class="form-outline mb-3">
-            <input type="text" id="year" name="Year" class="form-control form-control-lg"
-                   placeholder="Enter your academic year" />
-            <label class="form-label" for="year">Academic Year</label>
-        </div>
-    </div>
 
            
             <!-- Register button -->
