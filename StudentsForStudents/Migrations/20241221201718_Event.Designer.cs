@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentsForStudents.Context;
 
@@ -11,9 +12,11 @@ using StudentsForStudents.Context;
 namespace StudentsForStudents.Migrations
 {
     [DbContext(typeof(SFSDBContect))]
-    partial class SFSDBContectModelSnapshot : ModelSnapshot
+    [Migration("20241221201718_Event")]
+    partial class Event
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,7 +261,7 @@ namespace StudentsForStudents.Migrations
                     b.Property<DateTime>("DateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2024, 12, 21, 23, 45, 31, 999, DateTimeKind.Local).AddTicks(974));
+                        .HasDefaultValue(new DateTime(2024, 12, 21, 23, 17, 17, 967, DateTimeKind.Local).AddTicks(3079));
 
                     b.Property<bool>("IsRead")
                         .ValueGeneratedOnAdd()
@@ -306,7 +309,7 @@ namespace StudentsForStudents.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2024, 12, 21, 23, 45, 31, 999, DateTimeKind.Local).AddTicks(4379));
+                        .HasDefaultValue(new DateTime(2024, 12, 21, 23, 17, 17, 967, DateTimeKind.Local).AddTicks(6338));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -363,6 +366,9 @@ namespace StudentsForStudents.Migrations
                         .HasAnnotation("SqlServer:IdentityIncrement", 1)
                         .HasAnnotation("SqlServer:IdentitySeed", 1L)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");

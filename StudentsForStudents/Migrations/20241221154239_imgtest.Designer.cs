@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentsForStudents.Context;
 
@@ -11,9 +12,11 @@ using StudentsForStudents.Context;
 namespace StudentsForStudents.Migrations
 {
     [DbContext(typeof(SFSDBContect))]
-    partial class SFSDBContectModelSnapshot : ModelSnapshot
+    [Migration("20241221154239_imgtest")]
+    partial class imgtest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,7 +261,7 @@ namespace StudentsForStudents.Migrations
                     b.Property<DateTime>("DateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2024, 12, 21, 23, 45, 31, 999, DateTimeKind.Local).AddTicks(974));
+                        .HasDefaultValue(new DateTime(2024, 12, 21, 18, 42, 38, 994, DateTimeKind.Local).AddTicks(3841));
 
                     b.Property<bool>("IsRead")
                         .ValueGeneratedOnAdd()
@@ -306,7 +309,7 @@ namespace StudentsForStudents.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2024, 12, 21, 23, 45, 31, 999, DateTimeKind.Local).AddTicks(4379));
+                        .HasDefaultValue(new DateTime(2024, 12, 21, 18, 42, 38, 994, DateTimeKind.Local).AddTicks(5784));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -353,27 +356,6 @@ namespace StudentsForStudents.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("StudentsForStudents.Models.Event", b =>
-                {
-                    b.Property<int>("EventID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("EventID");
-
-                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("StudentsForStudents.Models.Lecture", b =>
@@ -519,6 +501,9 @@ namespace StudentsForStudents.Migrations
                     b.Property<float>("GPA")
                         .HasColumnType("float");
 
+                    b.Property<string>("ImgPath")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -536,9 +521,6 @@ namespace StudentsForStudents.Migrations
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
-
-                    b.Property<byte[]>("ProfilePicture")
-                        .HasColumnType("longblob");
 
                     b.Property<string>("QualificationCourses")
                         .HasColumnType("longtext");

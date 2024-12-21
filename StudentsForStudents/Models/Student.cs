@@ -13,7 +13,7 @@
 
         public string Major {  get; set; }
 
-        public string ImgPath { get; set; }
+        public byte[] ProfilePicture { get; set; } 
         public int Level { get; set;}
 
          

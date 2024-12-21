@@ -182,7 +182,8 @@
                     <ul class="navbar-nav">
                         <li><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
                         <li><a asp-controller="Admin" asp-action="CoursesManagement">Manage Courses</a></li>
-                        <li><a asp-controller="Admin" asp-action="UsersManagement">Manage Users</a></li>
+                        <li><a asp-controller="Admin" asp-action="StdManagement">Manage Students</a></li>
+                        <li><a asp-controller="Admin" asp-action="TeacherManagement">Manage Teachers</a></li>
                         <li><a  asp-controller="Admin" asp-action="CalendarManagement">Manage Calendar</a></li>
                         <li><a  asp-controller="Admin" asp-action="TeacherReq">Teacher requiste</a></li>
                         <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
@@ -200,7 +201,8 @@
                 <h4>Admin Panel</h4>
                 <ul>
                     <li><i class="fa fa-tachometer"></i><a asp-controller="Admin" asp-action="Index">Dashboard Overview</a></li>
-                    <li><i class="fa fa-users"></i><a asp-controller="Admin" asp-action="UsersManagement" id="view-users-btn">View Users</a></li>
+                    <li><a asp-controller="Admin" asp-action="StdManagement">Manage Students</a></li>
+                    <li><a asp-controller="Admin" asp-action="TeacherManagement">Manage Teachers</a></li>
                     <li><i class="fa fa-book"></i><a asp-controller="Admin" asp-action="CoursesManagement">Courses Control</a></li>
                     <li><i class="fa fa-calendar"></i><a asp-controller="Admin" asp-action="CalendarManagement">Calendar Management</a></li>
                 </ul>
@@ -212,36 +214,7 @@
                     <h2>Welcome, Administrator</h2>
                     <p>Here you can manage users, courses, and more.</p>
                 </div>
-    
-                <!-- User Management -->
-                <div class="management-section">
-                    <h3>Users Management</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>john.doe@example.com</td>
-                                <td>Student</td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <a href="#" class="btn btn-primary">Add New User</a>
-                </div>
-    
+
                 <!-- Course Management -->
                 <div class="management-section">
                     <h3>Courses Management</h3>
@@ -270,6 +243,65 @@
                     </table>
                     <a href="#" class="btn btn-primary">Add New Course</a>
                 </div>
+    
+                <!-- User Management -->
+                <div class="management-section">
+                    <h3>Users Management</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Student 1</td>
+                                <td>john.doe@example.com</td>
+                                <td>Student</td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a asp-controller="Admin" asp-action="StdManagement">View All Student</a>
+                </div>
+
+                <div class="management-section">
+                    <h3>Users Management</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>john.doe@example.com</td>
+                                <td>Teacher</td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a asp-controller="Admin" asp-action="TeacherManagement">View All Teachers</a>
+                </div>
+    
+              
     
                 <!-- Calendar Management -->
                 <div class="management-section">

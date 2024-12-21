@@ -24,7 +24,7 @@ namespace StudentsForStudents.Models.EntityTypeConfig
             builder.Property(x => x.Major).IsRequired().HasMaxLength(50);
 
             builder.Property(x => x.Level).IsRequired();
-            builder.Property(x => x.ImgPath).IsRequired(false);
+            builder.Property(x => x.ProfilePicture).IsRequired(false);
 
         }
     }

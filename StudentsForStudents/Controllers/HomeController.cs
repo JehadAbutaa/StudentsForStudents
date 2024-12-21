@@ -555,23 +555,6 @@ namespace StudentsForStudents.Controllers
             {
                 return RedirectToAction("Login");
             }
-            var User = await _context.Teacher.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
-            if (User != null)
-            {
-                User.FirstName = FirstName;
-                User.LastName = LastName;
-                User.Email = Email;
-                User.PhoneNumber = PhoneNumber;
-                User.Major = Major;
-                User.Level = Level;
-                User.Desc = Desc;
-                User.StudentId = StudentId;
-                User.QualificationCourses = QualificationCourses;
-                User.GPA = GPA;
-                _context.Update(User);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Profile");
-            }
             var User2 = await _context.Students.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
             if (User2 != null)
             {
@@ -584,8 +567,14 @@ namespace StudentsForStudents.Controllers
                 User2.StudentId = StudentId;
                 _context.Update(User2);
                 await _context.SaveChangesAsync();
+                TempData["ProfileMSGSS"] = "Your Edit Done Successfully.";
                 return RedirectToAction("Profile");
+
+
             }
+            else
+                TempData["ProfileMSGF"] = "SomeThing went Wrong.";
+
 
 
             return View(User);
@@ -596,6 +585,42 @@ namespace StudentsForStudents.Controllers
         public async Task<IActionResult> About()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePictureStudents(IFormFile ProfilePicture)
+        {
+            var UsereMAIL = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(UsereMAIL))
+            {
+                return RedirectToAction("Login");
+            }
+
+
+            var user = await _context.Students.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
+
+
+            if (ProfilePicture == null || ProfilePicture.Length == 0)
+            {
+                ModelState.AddModelError("", "Please select a valid image.");
+                return View();
+            }
+
+            using var memoryStream = new MemoryStream();
+            await ProfilePicture.CopyToAsync(memoryStream);
+            var imageData = memoryStream.ToArray();
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            user.ProfilePicture = imageData;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Profile");
         }
 
 

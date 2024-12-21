@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<StudentsForStudents.Models.Student>
+
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -31,48 +33,48 @@
 
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Manage Users</h1>
+        <h1 class="text-center mb-4">Students Maneger</h1>
         <p class="text-center">View, add, and manage users below:</p>
         <div class="table-container">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        <th>PhoneNumber</th>
+                        <th>StudentId</th>
+                        <th>Major</th>
+                        <th>Level</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                     @foreach (var item in Model)
+                {
                     <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>john.doe@example.com</td>
-                        <td>Student</td>
-                        <td>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.StudentId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Major)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Level)</td>
+
+                            <td>
                             <a href="#" class="btn btn-sm btn-warning">Edit</a>
                             <a href="#" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>jane.smith@example.com</td>
-                        <td>Teacher</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                        </td>
-                    </tr>
+                }
                 </tbody>
             </table>
-            <div class="text-center">
-                <a href="#" class="btn btn-primary">Add New User</a>
-            </div>
+          
         </div>
         <div class="mt-4 text-center">
-            <a href="index.html" class="btn btn-secondary">Back to Dashboard</a>
+            <a asp-controller="Admin" asp-action="Index">Back to Dashboard</a>
         </div>
     </div>
 

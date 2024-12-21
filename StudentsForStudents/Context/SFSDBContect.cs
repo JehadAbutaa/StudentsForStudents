@@ -26,6 +26,7 @@ namespace StudentsForStudents.Context
 
             modelBuilder.ApplyConfiguration<Courses>(new CoursesEntityTypeConfig());
             modelBuilder.ApplyConfiguration<Payment>(new PaymentEntityTypeConfig());
+            modelBuilder.ApplyConfiguration<Event>(new EventEntityTypeConfig());
 
 
         }
@@ -39,6 +40,7 @@ namespace StudentsForStudents.Context
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Payment> Payment { get; set; }
 
+        public DbSet<Event> Events { get; set; }
 
         // public DbSet<ChatViewModel> ChatViewModel { get; set; }
 

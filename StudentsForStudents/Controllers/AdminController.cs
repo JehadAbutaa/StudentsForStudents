@@ -32,22 +32,30 @@ namespace StudentsForStudents.Controllers
         }
         public async Task<IActionResult> CoursesManagement ()
         {
-            return View();
+            var ALLCources = await _context.Courses.ToListAsync();
+            return View(ALLCources);
         }
-        public async Task<IActionResult> UsersManagement()
+        public async Task<IActionResult> StdManagement()
         {
-            return View();
+            var ALLSTD = await _context.Students.ToListAsync();
+            return View(ALLSTD);
         }
-        public async Task<IActionResult> CalendarManagement()
+        public async Task<IActionResult> TeacherManagement()
         {
-            return View();
+            var ALLTeacher= await _context.Teacher.ToListAsync();
+            return View(ALLTeacher);
         }
-
         public async Task<IActionResult> TeacherReq()
         {
             var ALlReq = await _context.CourseRequests.ToListAsync();
             return View(ALlReq);
         }
+
+        public async Task<IActionResult> CalendarManagement()
+        {
+            return View();
+        }
+
 
         public async Task<IActionResult> TeacherReqHandel(string action, string email , DateTime date)
         {
@@ -73,7 +81,8 @@ namespace StudentsForStudents.Controllers
             return RedirectToAction("TeacherReq"); 
         }
 
-        public async Task<IActionResult> Test()
+        
+        public async Task<IActionResult> RemoveStd()
         {
             return View();
         }

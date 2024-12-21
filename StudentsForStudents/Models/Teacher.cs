@@ -13,7 +13,7 @@
         public string PhoneNumber { get; set; }
         public string Desc { get; set; }
 
-        public string ImgPath { get; set; }
+        public byte[] ProfilePicture { get; set; }
         public string QualificationCourses { get; set; }
         public string Major { get; set; }
         public int Level { get; set; }

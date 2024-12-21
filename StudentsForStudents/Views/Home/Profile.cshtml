@@ -148,7 +148,7 @@
                                 Pages
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="elements.html">Conatact Us</a>
+                                <a asp-controller="Home" asp-action="Send> Conatact Us</a>
                                 <a class="dropdown-item" href="course-details.html">Chating</a>
                             </div>
                         </li>
@@ -199,6 +199,18 @@
     </section>
     <!-- ================ End Banner Area ================= -->
     <!-- ================ Start Profile Section ================= -->
+    @if (TempData["ProfileMSGSS"] != null)
+    {
+
+        <div class="alert alert-success" role="alert">
+            @TempData["ProfileMSGSS"]
+        </div>
+    }
+
+    @if (TempData["ProfileMSGF"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ProfileMSGF"]</div>
+    }
     <section class="profile-page-area section-gap" style="background-image: url('img/video-area-bg.png'); background-size: cover; background-position: center; padding: 120px 0; color: white;">
         <div class="container">
             <div class="row">
@@ -206,7 +218,21 @@
                 <div class="col-lg-4">
                     <div class="profile-card text-center" style="padding: 40px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); border-radius: 12px; background-color: rgba(4, 9, 30, 0.9);">
                         <!-- Fixed size square image -->
-                        <img src="@Model.ImgPath" alt="Profile Picture" class="rounded-circle mb-4" style="width: 200px; height: 200px; object-fit: cover;" />
+                        <img src="@(Model.ProfilePicture != null
+    ? $"data:image/jpeg;base64,{Convert.ToBase64String(Model.ProfilePicture)}"
+    : "/path/to/default/profile-picture.jpg")"
+                             alt="Profile Picture"
+                             style="width: 150px; height: 150px;" />
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <form asp-action="UploadProfilePictureStudents" asp-controller="Home" method="post" enctype="multipart/form-data">
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label for="profile-pic" style="font-size: 24px; color: white;">Profile Picture</label>
+                                    <input type="file" class="form-control" id="profile-pic" name="ProfilePicture" accept="image/*" style="font-size: 18px; padding: 12px 15px;">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+
+                        </div>
                         <h3 style="font-size: 32px; color: white;">@Model.FirstName @Model.LastName</h3>
                         <button class="btn primary-btn mt-4" id="edit-profile-btn" style="font-size: 20px; padding: 14px 35px; background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%); border: none; color: white; border-radius: 6px;">Edit Profile</button>
                     </div>
@@ -225,39 +251,37 @@
                         <!-- Edit Profile Form (Initially hidden but with consistent height) -->
                         <form asp-controller="Home" asp-action="EditProfile" id="edit-profile-form" style="display:none; font-size: 18px; margin-top: 20px;">
                             <div class="form-group" style="margin-bottom: 20px;">
-                                <label for="name" style="font-size: 24px; color: white;">First Name</label>
-                                <input type="text" class="form-control" id="name" value="@Model.FirstName" style="font-size: 18px; padding: 12px 15px;">
+                                <label for="firstName" style="font-size: 24px; color: white;">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="First Name" value="@Model.FirstName" name="FirstName" style="font-size: 18px; padding: 12px 15px;">
                             </div>
                             <div class="form-group" style="margin-bottom: 20px;">
-                                <label for="name" style="font-size: 24px; color: white;">Last Name</label>
-                                <input type="text" class="form-control" id="name" value="@Model.LastName" style="font-size: 18px; padding: 12px 15px;">
+                                <label for="lastName" style="font-size: 24px; color: white;">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Last Name" value="@Model.LastName" name="LastName" style="font-size: 18px; padding: 12px 15px;">
                             </div>
                             <div class="form-group" style="margin-bottom: 20px;">
                                 <label for="email" style="font-size: 24px; color: white;">Email</label>
-                                <input type="email" class="form-control" id="email" value="@Model.Email" style="font-size: 18px; padding: 12px 15px;">
+                                <input type="email" class="form-control" id="email" placeholder="Email" value="@Model.Email" name="Email" style="font-size: 18px; padding: 12px 15px;">
                             </div>
                             <div class="form-group" style="margin-bottom: 20px;">
                                 <label for="phone" style="font-size: 24px; color: white;">Phone</label>
-                                <input type="text" class="form-control" id="phone" value="@Model.PhoneNumber" style="font-size: 18px; padding: 12px 15px;">
+                                <input type="text" class="form-control" id="phone" placeholder="Phone Number" value="@Model.PhoneNumber" name="PhoneNumber" style="font-size: 18px; padding: 12px 15px;">
                             </div>
                             <div class="form-group" style="margin-bottom: 20px;">
-                                <label for="address" style="font-size: 24px; color: white;">Major</label>
-                                <input type="text" class="form-control" id="address" value="@Model.Major" style="font-size: 18px; padding: 12px 15px;">
-                            </div>
-                             <div class="form-group" style="margin-bottom: 20px;">
-                                <label for="address" style="font-size: 24px; color: white;">Level</label>
-                                <input type="text" class="form-control" id="address" value="@Model.Level" style="font-size: 18px; padding: 12px 15px;">
+                                <label for="major" style="font-size: 24px; color: white;">Major</label>
+                                <input type="text" class="form-control" id="major" placeholder="Major" value="@Model.Major" name="Major" style="font-size: 18px; padding: 12px 15px;">
                             </div>
                             <div class="form-group" style="margin-bottom: 20px;">
-                                <label for="address" style="font-size: 24px; color: white;">Student ID</label>
-                                <input type="text" class="form-control" id="address" value="@Model.StudentId" style="font-size: 18px; padding: 12px 15px;">
+                                <label for="level" style="font-size: 24px; color: white;">Level</label>
+                                <input type="text" class="form-control" id="level" placeholder="Academic Year" value="@Model.Level" name="Level"  style="font-size: 18px; padding: 12px 15px;">
                             </div>
                             <div class="form-group" style="margin-bottom: 20px;">
-                                <label for="profile-pic" style="font-size: 24px; color: white;">Profile Picture</label>
-                                <input type="file" class="form-control" id="profile-pic" accept="image/*" style="font-size: 18px; padding: 12px 15px;">
+                                <label for="studentId" style="font-size: 24px; color: white;">Student ID</label>
+                                <input type="text" class="form-control" id="studentId" placeholder="StudentId" value="@Model.StudentId" name="StudentId" style="font-size: 18px; padding: 12px 15px;">
                             </div>
+
                             <button type="submit" class="btn primary-btn mt-4" style="font-size: 20px; padding: 12px 30px; background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%); border: none; color: white; border-radius: 6px;">Save Changes</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -330,7 +354,7 @@
         });
 
         // Handle form submission (just a basic example, no back-end implementation here)
-        document.getElementById('edit-profile-form').addEventListener('submit', function (e) {
+        document.getElementById('edit-profile').addEventListener('submit', function (e) {
             e.preventDefault();
 
             // Here you would handle saving the changes (e.g., sending to a server)

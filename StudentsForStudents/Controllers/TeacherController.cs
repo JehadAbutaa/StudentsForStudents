@@ -79,7 +79,7 @@ namespace StudentsForStudents.Controllers
                 User.GPA = GPA;
                 _context.Update(User);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Profile");
+                return RedirectToAction("TeacherProfile");
             }
 
             return View(User);
@@ -115,6 +115,41 @@ namespace StudentsForStudents.Controllers
 
             }
             return RedirectToAction("AddCourses" , "Teacher");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePictureStudents(IFormFile ProfilePicture)
+        {
+            var UsereMAIL = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(UsereMAIL))
+            {
+                return RedirectToAction("Login");
+            }
+
+
+            var user = await _context.Teacher.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
+
+
+            if (ProfilePicture == null || ProfilePicture.Length == 0)
+            {
+                ModelState.AddModelError("", "Please select a valid image.");
+                return View();
+            }
+
+            using var memoryStream = new MemoryStream();
+            await ProfilePicture.CopyToAsync(memoryStream);
+            var imageData = memoryStream.ToArray();
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            user.ProfilePicture = imageData;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("TeacherProfile");
         }
     }
 }

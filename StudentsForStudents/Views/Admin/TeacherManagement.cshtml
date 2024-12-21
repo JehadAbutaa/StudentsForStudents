@@ -1,0 +1,95 @@
+﻿@model IEnumerable<StudentsForStudents.Models.Teacher>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #1E90FF;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #0066cc;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Teacher Manager </h1>
+        <p class="text-center">View, add, and manage users below:</p>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>PhoneNumber</th>
+                        <th>StudentId</th>
+                        <th>Major</th>
+                        <th>Level</th>
+                        <th>Desc</th>
+                        <th>QualificationCourses</th>
+                        <th>GPA</th>
+                        <th>Rate</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model){
+                    <tr>
+                        
+                
+                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StudentId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Major)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Level)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Desc)</td>
+                            <td>@Html.DisplayFor(modelItem => item.QualificationCourses)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GPA)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Rate)</td>
+
+                        <td>
+                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            
+        </div>
+        <div class="mt-4 text-center">
+            <a asp-controller="Admin" asp-action="Index">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- JS Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
