@@ -161,8 +161,8 @@ namespace StudentsForStudents.Controllers
             }
  
 
-            [HttpPost]
-            public async Task<IActionResult> Login(string Email, string Password)
+        [HttpPost]
+        public async Task<IActionResult> Login(string Email, string Password)
             {
                 if (Email == null || Password == null)
                 {
@@ -373,14 +373,14 @@ namespace StudentsForStudents.Controllers
             }
 
 
-            [HttpGet]
-            public async Task<IActionResult> SendContactForm(string Name, string Email, string Message)
+        [HttpGet]
+        public async Task<IActionResult> SendContactForm(string Name, string Email, string Message)
             {
              return View();
             }
 
-            [HttpPost]
-            public async Task<IActionResult> SendContactFormm(string Name, string Email, string Message)
+        [HttpPost]
+        public async Task<IActionResult> SendContactFormm(string Name, string Email, string Message)
             {
                 var body = $"Name: {Name}\nEmail: {Email}\nMessage: {Message}";
                 if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) ||string.IsNullOrEmpty(Message))
@@ -425,7 +425,7 @@ namespace StudentsForStudents.Controllers
                 return RedirectToAction("SendContactForm");
             }
 
-            private bool IsValidEmail(string email)
+        private bool IsValidEmail(string email)
             {
                 if (string.IsNullOrWhiteSpace(email))
                     return false;
@@ -441,33 +441,31 @@ namespace StudentsForStudents.Controllers
                 }
             }
 
-            private bool IsValidPhoneNumber(string phoneNumber)
+        private bool IsValidPhoneNumber(string phoneNumber)
             {
                 return Regex.IsMatch(phoneNumber, @"^\d{1,15}$");
             }
 
 
-            public IActionResult Logout()
+        public IActionResult Logout()
             {
                 HttpContext.Session.Clear();
 
                 return RedirectToAction("Login");
             }
 
-            [HttpGet]
-            public IActionResult Login()
+        [HttpGet]
+        public IActionResult Login()
             {
                 return View();
             }
 
-            [HttpGet]
-            public IActionResult Register()
+        [HttpGet]
+        public IActionResult Register()
             {
                 return View();
             }
-
-      
-           public async Task SendEmailWithMailKit(string toEmail, string subject, string bodyHtml)
+        public async Task SendEmailWithMailKit(string toEmail, string subject, string bodyHtml)
           {
               var message = new MimeMessage();
               message.From.Add(new MailboxAddress("StudentForStudents", "studentforstudentteam@gmail.com"));

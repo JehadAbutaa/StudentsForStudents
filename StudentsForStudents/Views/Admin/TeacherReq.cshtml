@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<StudentsForStudents.Models.CourseRequest>
+
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -45,31 +47,36 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Course Requests</h1>
-
+        @foreach (var item in Model)
+        {
         <!-- Example of a Course Request -->
         <div class="request-card">
-            <h4>Course Title: Introduction to Python</h4>
-            <p>Requested by: John Doe</p>
-            <p>Description: A beginner-friendly course to learn Python programming.</p>
-
+                <h4>Course Title: @Html.DisplayFor(modelItem => item.CourceName)</h4>
+                <p>Requested by: @Html.DisplayFor(modelItem => item.RequestedBy)</p>
+                <p>Description: @Html.DisplayFor(modelItem => item.Description).</p>
+                <p>Faculty: @Html.DisplayFor(modelItem => item.Faculty).</p>
+                <p>Status: @Html.DisplayFor(modelItem => item.Status).</p>
+                <p>Created At: @Html.DisplayFor(modelItem => item.CreatedAt).</p>
             <div class="text-right">
-                <button class="btn btn-accept mr-2">Accept</button>
-                <button class="btn btn-decline">Decline</button>
+                    <form asp-controller="Admin" asp-action="TeacherReqHandel" method="post">
+                        <input type="hidden" name="action" value="accept">
+
+                        <input type="hidden" name="date" value="@item.CreatedAt">
+
+                        <input type="hidden" name="email" value="@item.RequestedBy">
+                        <button type="submit" class="btn btn-accept mr-2">Accept</button>
+                    </form>
+                    <br />
+                    <form asp-controller="Admin" asp-action="TeacherReqHandel" method="post">
+                        <input type="hidden" name="action" value="decline">
+                        <input type="hidden" name="date" value="@item.CreatedAt">
+                        <input type="hidden" name="email" value="@item.RequestedBy">
+                        <button type="submit" class="btn btn-decline">Decline</button>
+                    </form>
+
             </div>
         </div>
-
-        <!-- Add more request cards as needed -->
-        <div class="request-card">
-            <h4>Course Title: Advanced Machine Learning</h4>
-            <p>Requested by: Jane Smith</p>
-            <p>Description: A comprehensive guide to advanced machine learning techniques.</p>
-
-            <div class="text-right">
-                <button class="btn btn-accept mr-2">Accept</button>
-                <button class="btn btn-decline">Decline</button>
-            </div>
-        </div>
-
+         }
         <div class="text-center mt-4">
             <a href="index.html" class="btn btn-secondary">Back to Dashboard</a>
         </div>

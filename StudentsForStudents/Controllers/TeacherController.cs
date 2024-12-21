@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SmartLineSystem.Models;
 using StudentsForStudents.Context;
+using StudentsForStudents.Models;
 
 namespace StudentsForStudents.Controllers
 {
@@ -82,6 +83,38 @@ namespace StudentsForStudents.Controllers
             }
 
             return View(User);
+        }
+
+        public async Task<IActionResult> TeacherReq(string CourseName, string Description, string Faculty)
+        {
+            var UsereMAIL = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(UsereMAIL))
+            {
+                return RedirectToAction("Login");
+            }
+            var User = await _context.Teacher.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
+            if (User != null)
+            {
+                CourseRequest courseRequest = new CourseRequest();
+                courseRequest.CourceName = CourseName;
+                courseRequest.Description = Description;
+                courseRequest.Faculty = Faculty;
+                courseRequest.RequestedBy = User.Email;
+                courseRequest.Status = "Pending";
+                courseRequest.CreatedAt = DateTime.Now;
+
+                await _context.CourseRequests.AddAsync(courseRequest);
+                _context.SaveChanges();
+                TempData["ReqCoursesS"] = "Request Sent Successfuly.";
+
+            }
+            else
+            {
+                TempData["ReqCoursesF"] = "SomeThing went Wrong.";
+                return RedirectToAction("AddCourses", "Teacher");
+
+            }
+            return RedirectToAction("AddCourses" , "Teacher");
         }
     }
 }

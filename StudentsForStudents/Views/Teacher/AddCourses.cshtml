@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<StudentsForStudents.Models.Courses>
+@{
     Layout = null;
     ViewData["Title"] = "Delete";
 }
@@ -106,6 +107,8 @@
                         <li><a asp-controller="Teacher" asp-action="Index">Home</a></li>
                         <li><a asp-controller="Teacher" asp-action="TeacherDashbord">Teacher Dashboard</a></li>
                         <li><a asp-controller="Teacher" asp-action="AddCourses">Add Courses</a></li>
+                        <li><a asp-controller="VideoCall" asp-action="videoCall">Start Video Call</a></li>
+
                         <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
                         <li>
                             <button class="search">
@@ -181,29 +184,39 @@
     </div>
   </section>
   <!-- ================ End Teacher Description Area ================= -->
-  
-
+   
 <!-- ================ Start Add Course Area ================= -->
 <section class="add-course-area section-gap">
     <div class="container">
-        
-        <form id="add-course-form">
+           
+            <form asp-controller="Teacher" asp-action="TeacherReq" id="">
             <!-- Course Name -->
+                @if (TempData["ReqCoursesS"] != null)
+                {
+
+                    <div class="alert alert-success" role="alert">
+                        @TempData["ReqCoursesS"]
+                    </div>
+                }
+                @if (TempData["ReqCoursesF"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ReqCoursesF"]</div>
+                }
             <div class="form-group">
                 <label for="course-name">Course Name:</label>
-                <input type="text" class="form-control" id="course-name" placeholder="Enter the course name" required>
+                    <input name="CourseName" type="text" class="form-control" id="course-name" placeholder="Enter the course name" required>
             </div>
 
             <!-- Course Description -->
             <div class="form-group">
-                <label for="course-description">Course Description:</label>
-                <textarea class="form-control" id="course-description" rows="5" placeholder="Provide a brief description of the course" required></textarea>
+                <label for="course-description">Description:</label>
+                    <textarea name="Description" class="form-control" id="course-description" rows="5" placeholder="Provide a brief description " required></textarea>
             </div>
 
             <!-- Select Faculty -->
             <div class="form-group">
-                
-                <select class="form-control" id="faculty" required>
+
+                    <select class="form-control" name="Faculty" id="faculty" required>
                     <option value="" disabled selected>Select a faculty</option>
                     <option value="Information Technology">Information Technology</option>
                     <option value="Engineering and Technology">Engineering and Technology</option>

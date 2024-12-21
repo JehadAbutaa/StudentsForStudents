@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Call</title>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #meet {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="meet"></div>
+
+    <script>
+        const domain = "meet.jit.si";
+        const options = {
+            roomName: "StudentForStudentVideoRoom", 
+            width: "100%",
+            height: "100%",
+            parentNode: document.querySelector("#meet"),
+        };
+
+        const api = new JitsiMeetExternalAPI(domain, options);
+
+        // Add event listeners (optional)
+        api.addEventListener('videoConferenceJoined', () => {
+            console.log('Video conference joined!');
+        });
+
+        api.addEventListener('videoConferenceLeft', () => {
+            console.log('Video conference left.');
+        });
+    </script>
+</body>
+
+</html>
