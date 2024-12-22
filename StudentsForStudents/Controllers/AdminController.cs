@@ -105,10 +105,10 @@ namespace StudentsForStudents.Controllers
             var ALlReq = await _context.CourseRequests.ToListAsync();
             return View(ALlReq);
         }
-        public async Task<IActionResult> TeacherReqHandel(string action, string email , DateTime date)
+        public async Task<IActionResult> TeacherReqHandel(string action, string email , DateTime date , string Description)
         {
             var courseRequest = await _context.CourseRequests
-                                       .FirstOrDefaultAsync(cr => cr.RequestedBy == email && cr.CreatedAt == date);
+                                       .FirstOrDefaultAsync(cr => cr.RequestedBy == email && cr.Description == Description);
 
             if (courseRequest == null)
             {

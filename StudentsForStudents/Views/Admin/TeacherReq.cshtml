@@ -62,13 +62,14 @@
                         <input type="hidden" name="action" value="accept">
 
                         <input type="hidden" name="date" value="@item.CreatedAt">
-
+                        <input type="hidden" name="Description" value="@item.Description">
                         <input type="hidden" name="email" value="@item.RequestedBy">
                         <button type="submit" class="btn btn-accept mr-2">Accept</button>
                     </form>
                     <br />
                     <form asp-controller="Admin" asp-action="TeacherReqHandel" method="post">
                         <input type="hidden" name="action" value="decline">
+                        <input type="hidden" name="Description" value="@item.Description">
                         <input type="hidden" name="date" value="@item.CreatedAt">
                         <input type="hidden" name="email" value="@item.RequestedBy">
                         <button type="submit" class="btn btn-decline">Decline</button>
