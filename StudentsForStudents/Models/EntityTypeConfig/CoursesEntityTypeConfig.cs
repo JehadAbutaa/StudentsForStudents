@@ -15,7 +15,7 @@ namespace StudentsForStudents.Models.EntityTypeConfig
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
 
-            builder.Property(x => x.ImgPath).IsRequired();
+            builder.Property(x => x.CourcePicture).IsRequired(false);
 
             
 

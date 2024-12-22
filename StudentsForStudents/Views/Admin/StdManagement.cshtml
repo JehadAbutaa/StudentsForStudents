@@ -64,8 +64,8 @@
                         <td>@Html.DisplayFor(modelItem => item.Level)</td>
 
                             <td>
-                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                            <a asp-controller="Admin" asp-action="EditStdV" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-controller="Admin" asp-action="DeleteStdV" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                 }

@@ -73,8 +73,8 @@
                             <td>@Html.DisplayFor(modelItem => item.Rate)</td>
 
                         <td>
-                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                <a asp-controller="Admin" asp-action="EditTeacherV" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                                <a asp-controller="Admin" asp-action="DeleteTeacherV" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                 }
