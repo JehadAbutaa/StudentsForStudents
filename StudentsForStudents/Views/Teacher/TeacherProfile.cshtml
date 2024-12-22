@@ -330,10 +330,10 @@
                                     <form asp-action="UploadProfilePictureStudents" asp-controller="Teacher" method="post" enctype="multipart/form-data">
                                         <div class="form-group" style="margin-bottom: 20px;">
                                             <label for="profile-pic" style="font-size: 24px; color: white;">Profile Picture</label>
-                                            <input type="file" class="form-control" id="profile-pic" name="ProfilePicture" accept="image/*" style="font-size: 18px; padding: 12px 15px;">
+                                            <input type="file" class="form-control" id="profile-pic" name="ProfilePicture" accept="image/*" style="font-size: 18px; padding: 1px 1px;">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Upload</button>
-                                    </form>              
+                                 <button style ="background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%); border: none;"
+                                 type="submit" class="btn btn-primary">Upload</button>                                    </form>              
                                     <h3 style="font-size: 32px; color: white;">@Model.FirstName @Model.LastName</h3>
                                 <button class="btn primary-btn mt-4" id="edit-profile-btn" style="font-size: 20px; padding: 14px 35px; background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%); border: none; color: white; border-radius: 6px;">Edit Profile</button>
                             </div>
