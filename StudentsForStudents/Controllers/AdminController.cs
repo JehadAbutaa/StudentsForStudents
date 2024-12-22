@@ -128,7 +128,6 @@ namespace StudentsForStudents.Controllers
 
             return RedirectToAction("TeacherReq"); 
         }
-
         public async Task<IActionResult> EditTeacherV(int id)
         {
             var User = await _context.Teacher.Where(x => x.Id == id).FirstOrDefaultAsync();
