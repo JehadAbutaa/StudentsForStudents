@@ -210,9 +210,11 @@
                         <li><a asp-controller="Home" asp-action="SendContactForm">Contacts</a></li>
                         <li><a asp-controller="Home" asp-action="Logout">Logout</a></li>
                         <li>
-                            <button class="search">
-                                <span class="lnr lnr-magnifier" id="search"></span>
-                            </button>
+                            <form asp-controller="Home" asp-action="Search" class="d-flex justify-content-between">
+                                <input type="text" name="searchTerm" class="form-control" id="search-input" placeholder="Search Cource" />
+                                <button type="submit" class="btn"></button>
+                                <span class="lnr lnr-cross" id="close-search" title="Close Search"></span>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -220,7 +222,7 @@
         </nav>
         <div class="search-input" id="search-input-box">
             <div class="container">
-                <form class="d-flex justify-content-between">
+                <form asp-controller="Home" asp-action="Search" class="d-flex justify-content-between">
                     <input type="text" class="form-control" id="search-input" placeholder="Search Here" />
                     <button type="submit" class="btn"></button>
                     <span class="lnr lnr-cross" id="close-search" title="Close Search"></span>

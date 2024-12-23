@@ -19,7 +19,7 @@
             margin: 20px auto;
             display: flex;
             height: auto;
-            padding: 20px;
+            padding: 50px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
         }
 
@@ -36,7 +36,7 @@
             height: 150px;
             object-fit: cover;
             border-radius: 10px;
-            margin-right: 20px;
+            margin-right: 25px;
             transition: transform 0.3s ease;
         }
 
@@ -247,10 +247,11 @@
             {
                            
                 <div class="teacher-card">
-                    <img src="@Html.DisplayFor(modelItem => item.ProfilePicture != null
-? $"data:image/jpeg;base64,{Convert.ToBase64String(item.ProfilePicture)}"
-: "/path/to/default/profile-picture.jpg")"
-                         alt="Teacher" class="teacher-image" />
+                    <img src="@(item.ProfilePicture != null
+    ? $"data:image/jpeg;base64,{Convert.ToBase64String(item.ProfilePicture)}"
+    : "/path/to/default/profile-picture.jpg")"
+                         alt="Profile Picture"
+                         style="width: 150px; height: 150px;" />
                     <div class="teacher-info">
                         <h2 class="teacher-name">@Html.DisplayFor(modelItem => item.FirstName) </h2><h2 class ="teacher-name">
                             @Html.DisplayFor(modelItem => item.LastName) </h2>

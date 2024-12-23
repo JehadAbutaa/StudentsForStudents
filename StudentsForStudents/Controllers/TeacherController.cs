@@ -92,7 +92,6 @@ namespace StudentsForStudents.Controllers
             {
                 return RedirectToAction("Login");
             }
-            var User = await _context.Teacher.Where(x => x.Email == UsereMAIL).FirstOrDefaultAsync();
             if (User != null)
             {
                 CourseRequest courseRequest = new CourseRequest();
