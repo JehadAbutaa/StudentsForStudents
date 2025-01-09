@@ -23,7 +23,10 @@
         public int Rate { get; set; }
         public virtual ICollection<Courses> InrolmentCourses { get; set; } = new List<Courses>();
 
+        public ICollection<Rating> Ratings { get; set; } // Ratings collection
 
 
     }
+
+  
 }

@@ -95,7 +95,7 @@
             cursor: pointer;
             position: absolute;
             right: 10px;
-            top: 50%;
+            top: 30%;
             transform: translateY(-50%);
             transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -122,6 +122,50 @@
         .star-filled {
             color: #fdd835; /* Filled star color (yellow) */
         }
+
+        .rate-btn {
+            background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 1.3em; /* Slightly larger text */
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 60%;
+            transform: translateY(-50%);
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .rate-btn:hover {
+                opacity: 0.9;
+                transform: scale(1.1) translateY(-50%); /* Button grows slightly */
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Slight shadow on hover */
+            }
+
+        .Pay-btn {
+            background: linear-gradient(90deg, #7c32ff 0%, #c738d8 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 1.3em; /* Slightly larger text */
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 90%;
+            transform: translateY(-50%);
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .Pay-btn:hover {
+                opacity: 0.9;
+                transform: scale(1.1) translateY(-50%); /* Button grows slightly */
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Slight shadow on hover */
+            }
     </style>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -266,7 +310,18 @@
                     <div class="bottom d-flex mt-15">
                     <a asp-controller="Chat" asp-action="ChatWindowHelperToGetR" asp-route-receiverId="@item.Id" class="chat-btn">Start Chatting</a>
                     </div>
-
+                    <br />
+                    <div class="bottom d-flex mt-15">
+                        <button type="button" class="rate-btn" data-toggle="modal" data-target="#ratingModal" data-teacherid="@item.Id">
+                            Rate
+                        </button>
+                   </div>
+                    <div class="bottom d-flex mt-15">
+                        <a asp-controller="Payment" asp-action="Index" type="button" class="Pay-btn">
+                            Pay
+                        </a>
+                    </div>
+                 
                 </div>
             }
         </div>
@@ -341,3 +396,102 @@
 </body>
 
 </html>
+
+
+<!-- Add Custom CSS for Star Rating -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ratingModalTitle">Rate Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <form asp-controller="Teacher" asp-action="RateHandel">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Your Rating</label>
+                        <div id="star-rating">
+                            <span class="star" data-value="1">&#9733;</span>
+                            <span class="star" data-value="2">&#9733;</span>
+                            <span class="star" data-value="3">&#9733;</span>
+                            <span class="star" data-value="4">&#9733;</span>
+                            <span class="star" data-value="5">&#9733;</span>
+                        </div>
+                        <!-- Hidden input for teacher id -->
+                        <input type="hidden" name="teacherid" required>
+                        <input type="hidden" id="rating" name="Rating" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Custom CSS for Star Rating -->
+    <style>
+        #star-rating {
+            font-size: 24px;
+            display: inline-flex;
+            direction: ltr; /* Display stars from left to right */
+        }
+
+            #star-rating .star {
+                cursor: pointer;
+                color: lightgray;
+            }
+
+                #star-rating .star.selected {
+                    color: gold;
+                }
+    </style>
+
+    <!-- Add JavaScript for Star Rating -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Listen for modal opening
+        $('#ratingModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var teacherId = button.data('teacherid'); // Extract the teacher ID from data-teacherid
+
+            // Set the hidden input field with the teacher's ID
+            var modal = $(this);
+            modal.find('input[name="teacherid"]').val(teacherId);
+        });
+
+        // Star rating behavior
+        const stars = document.querySelectorAll("#star-rating .star");
+        const ratingInput = document.getElementById("rating");
+
+        stars.forEach((star) => {
+            star.addEventListener("click", function () {
+                // Clear previous selections
+                stars.forEach((s) => s.classList.remove("selected"));
+
+                // Highlight selected stars
+                this.classList.add("selected");
+                let value = this.getAttribute("data-value");
+
+                // Highlight all stars before the selected one
+                stars.forEach((s) => {
+                    if (s.getAttribute("data-value") <= value) {
+                        s.classList.add("selected");
+                    }
+                });
+
+                // Set hidden input value
+                ratingInput.value = value;
+            });
+        });
+    });
+
+    </script>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentsForStudents.Context;
 
@@ -11,9 +12,11 @@ using StudentsForStudents.Context;
 namespace StudentsForStudents.Migrations
 {
     [DbContext(typeof(SFSDBContect))]
-    partial class SFSDBContectModelSnapshot : ModelSnapshot
+    [Migration("20250109184450_Rate")]
+    partial class Rate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

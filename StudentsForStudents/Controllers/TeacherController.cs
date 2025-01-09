@@ -153,5 +153,48 @@ namespace StudentsForStudents.Controllers
 
             return RedirectToAction("TeacherProfile");
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> RateHandel(int Rating, int teacherid)
+        {
+            // Get the teacher from the database
+            var teacher = await _context.Teacher.FirstOrDefaultAsync(x => x.Id == teacherid);
+            if (teacher == null)
+            {
+                return NotFound();
+            }
+
+            // Store the rating in the Ratings table
+            var newRating = new Rating
+            {
+                TeacherId = teacherid,
+                RatingValue = Rating
+            };
+
+            _context.Rating.Add(newRating);
+            await _context.SaveChangesAsync();
+            var averageRating = _context.Rating
+                                        .Where(r => r.TeacherId == teacherid)
+                                        .Average(r => r.RatingValue);
+
+            teacher.Rate = (int)averageRating;
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = $"Thank you for rating: {Rating} stars!";
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+        public async Task<IActionResult> Calender()
+        {
+            return View();
+        }
+
+
+        
+
     }
 }
